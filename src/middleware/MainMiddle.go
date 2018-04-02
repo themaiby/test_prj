@@ -13,7 +13,7 @@ type LogWrapper struct {
 }
 
 func (wr LogWrapper) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	log.Debug(r.Method, " | local.domain.com", r.URL, " | ", r.UserAgent(), " | ", r.RemoteAddr, " | ")
+	log.Debug(r.Method, " | ", r.URL, " | ", r.UserAgent(), " | ", r.RemoteAddr, " | ")
 	wr.Handler.ServeHTTP(w, r)
 }
 

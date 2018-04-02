@@ -12,13 +12,12 @@ var table = "users"
 
 // struct for users table
 type user struct {
-	ID             int     `db:"id" json:"id"`
-	Username       *string `db:"username" json:"username"`
-	Name           *string `db:"name" json:"name"`
-	First_name     *string `db:"first_name" json:"first_name"`
-	Last_name      *string `db:"last_name" json:"last_name"`
-	Role_id        *int64  `db:"role_id" json:"role_id"`
-	Remember_token *string `db:"remember_token" json:"remember_token"`
+	ID         int     `db:"id" json:"id"`
+	Username   *string `db:"username" json:"username"`
+	Name       *string `db:"name" json:"name"`
+	First_name *string `db:"first_name" json:"first_name"`
+	Last_name  *string `db:"last_name" json:"last_name"`
+	Role_ID    *int    `db:"role_id" json:"role_id"`
 }
 
 // Model var for export
@@ -36,7 +35,7 @@ func (this *user) All() *[]user {
 	}
 
 	// query
-	err := db.DB.Select(&users, "SELECT id, username, name, first_name, last_name, role_id, remember_token from "+table)
+	err := db.DB.Select(&users, "SELECT id, username, name, first_name, last_name, role_id from "+table)
 
 	// check errors
 	if err != nil {
@@ -51,7 +50,7 @@ func (this *user) Find(id int) *user {
 	user := user{}
 
 	// query
-	result := db.DB.QueryRowx("SELECT id, username, name, first_name, last_name, role_id, remember_token FROM "+table+" where id = ?", id)
+	result := db.DB.QueryRowx("SELECT id, username, name, first_name, last_name, role_id FROM "+table+" where id = ?", id)
 
 	// scan query result into struct var
 	result.StructScan(&user)
@@ -63,7 +62,7 @@ func (this *user) First() *user {
 	// prepare new var for users
 	user := user{}
 
-	result := db.DB.QueryRowx("SELECT id, username, name, first_name, last_name, role_id, remember_token from " + table + " LIMIT")
+	result := db.DB.QueryRowx("SELECT id, username, name, first_name, last_name, role_id from " + table + " LIMIT")
 	// scan query result into struct var
 	result.StructScan(&user)
 	return &user
@@ -73,10 +72,9 @@ func (this *user) First() *user {
 func (this *user) Limit(limit int) *[]user {
 	users := []user{}
 	// generating condition
-	err := db.DB.Select(&users, "SELECT TOP "+strconv.Itoa(limit)+" id, username, name, first_name, last_name, role_id, remember_token from "+table)
+	err := db.DB.Select(&users, "SELECT TOP "+strconv.Itoa(limit)+" id, username, name, first_name, last_name, role_id from "+table)
 	if err != nil {
 		log.Error("[MSSQL] : ", err)
 	}
-	log.Info(users)
 	return &users
 }

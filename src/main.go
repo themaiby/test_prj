@@ -31,8 +31,6 @@ func main() {
 	// init routing
 	routing := routes.Make()
 
-	log.Info("Just for fun run migrations")
-
 	//	migration.Run() // TODO: make flag -migration
 
 	// run
