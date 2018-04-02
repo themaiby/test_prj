@@ -1,4 +1,4 @@
-# GoMailDirector
+# MailDirector
 
 Mail Management System
 
